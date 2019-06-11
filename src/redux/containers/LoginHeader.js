@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { findUser } from '../actions/async/login';
 import { registerUser } from '../actions/async/register';
-import { logOut } from '../actions/elements';
+import { logOut } from '../actions/actions';
 import LoginHeader from '../components/LoginHeader';
 
 const mapStateToProps = (state) => {
