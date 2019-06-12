@@ -15,17 +15,17 @@ module.exports = function(app){
     };
 
     User.findOne({'email': email}).exec(function(err, userObj){
-      console.log(userObj);
       if (err){
         console.log('----------------');
         console.log(err);
         console.log('----------------');
-        res.redirect('/');
+        res.send({});
       } else if (userObj === null) {
         console.log('----------------');
         console.log('User not found');
         console.log('-----------------');
-        res.send({});
+        userObj = {didSucceed:false};
+        res.send(userObj);
       }
       else {
         const userSavedHash = userObj.hash;
@@ -38,7 +38,7 @@ module.exports = function(app){
               console.log('--------------------');
               console.log("Incorrect password");
               console.log('--------------------');
-              res.send({});
+              res.send(null);
           } else {
               console.log('-----------------');
               console.log("Access granted");

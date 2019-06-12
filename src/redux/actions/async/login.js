@@ -1,5 +1,6 @@
-import fetch from 'cross-fetch';
+import fetch from 'isomorphic-fetch';
 import CryptoJS from 'crypto-js';
+//import { pendingTask, begin, end } from 'react-redux-spinner';
 import { pendingTask, begin, end } from 'react-redux-spinner';
 import {
   REQUEST_USER,
@@ -18,8 +19,8 @@ const requestUser = (email, password) => {
 };
 
 export const receiveUser = (user) => {
-  console.log('WE MADE IT HERE');
-  if (user === undefined) {
+  console.log(user);
+  if (user.didSucceed === false) {
     return {
       type: RECEIVE_USER_FAIL,
       receivedAt: Date.now(),
@@ -51,11 +52,12 @@ export const findUser = (email, password) => {
 
     return fetch(`/authenticate/${encodedEmail}/${encodedPassword}`, {
       method: 'GET',
-      credentials: 'same-origin',
+      credentials: 'include',
+      headers: {'Content-Type': 'application/json'}
     })
-      .then(response => response.json())
-      .then(user =>
-        dispatch(receiveUser(user)),
-      );
+    .then(response => response.json())
+    .then(user =>
+      dispatch(receiveUser(user)),
+    );
   };
 };

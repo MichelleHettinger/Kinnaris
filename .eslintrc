@@ -63,9 +63,5 @@
     "ecmaFeatures": {
       "jsx": true
     }
-  },
-  "ecmaFeatures": {
-    "jsx": true,
-    "experimentalObjectRestSpread": true
-  },
+  }
 }

@@ -1,4 +1,4 @@
-import fetch from 'cross-fetch';
+import fetch from 'isomorphic-fetch';
 import phs from 'password-hash-and-salt';
 import { pendingTask, begin, end } from 'react-redux-spinner';
 import validateEmailPass from '../../utils/validation';
@@ -56,6 +56,8 @@ export const registerUser = (email, password) => {
 
       return fetch(`/register/${encodedEmail}/${encodedHash}`, {
         method: 'POST',
+        credentials: 'include',
+        headers: {'Content-Type': 'application/json'}
       })
         .then(response => response.json())
         .then(user =>

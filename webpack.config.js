@@ -2,17 +2,28 @@ const path = require('path');
 const webpack = require('webpack');
 const pkjson = require('./package.json');
 
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+//const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-const extractSass = new ExtractTextPlugin({
-    filename: "allstyles.css",
-    disable: process.env.NODE_ENV === "development",
-});
+// const extractSass = new ExtractTextPlugin({
+//     filename: "allstyles.css",
+//     disable: process.env.NODE_ENV === "development",
+// });
 
 module.exports = {
-  entry: './src/redux/app.js',
+  entry: {
+    app: __dirname + "/src/redux/app.js",
+  },
+  output: {
+    filename: 'bundle.js',
+    path: __dirname + '/dist/',
+  },
+  mode: 'development',
   module: {
     rules: [
+      {
+        test: /\.html$/,
+        loader: "file-loader?name=[name].[ext]"
+      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
@@ -20,26 +31,14 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: extractSass.extract({
-          use: [
-            {loader: "css-loader"},
-            {loader: "sass-loader"}
-          ],
-          // use style-loader in development
-          fallback: "style-loader",
-        }),
-      },
-    ]
+        use: ["style-loader", "css-loader", "sass-loader"]
+      }]
   },
   resolve: {
     extensions: ['*', '.js', '.jsx']
   },
-  output: {
-    path: __dirname + '/dist',
-    filename: 'bundle.js'
-  },
   plugins: [
-    extractSass,
+    //extractSass,
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.LoaderOptionsPlugin({
@@ -49,12 +48,12 @@ module.exports = {
       __DEVELOPMENT__: true,
       __DEVTOOLS__: true,  // <-------- DISABLE redux-devtools HERE
       __BASE_URL__: JSON.stringify('http://localhost:7777/'),
-      __PUBLIC_PATH__: __dirname + '/dist/',
+      __PUBLIC_PATH__: __dirname + './dist/',
       __APP_VERSION__: JSON.stringify(pkjson.version)
     })
   ],
   devServer: {
-    contentBase: './dist',
+    contentBase: './dist/',
     hot: true
   }
 };
