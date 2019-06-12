@@ -4,15 +4,18 @@ const CryptoJS = require("crypto-js");
 
 module.exports = function(app){
 
-  //After entering user name and password and clicking submit, they are brought to this route
   app.get('/authenticate/:encodedEmail/:encodedHash', function(req, res) {
-    //start decrypting here
+    const email = decodeURIComponent(req.params.encodedEmail);
+    const encryptedPassword = decodeURIComponent(req.params.encodedPassword);
+    const whatUserTyped = CryptoJS.AES.decrypt(encryptedPassword, 'michelle is totally awesome').toString(CryptoJS.enc.Utf8);
+
     const userInfo = {
-      email: decodeURIComponent(req.params.encodedEmail),
-      password: CryptoJS.AES.decrypt(decodeURIComponent(req.params.encodedHash), 'michelle is totally awesome').toString(CryptoJS.enc.Utf8)
+      username: email,
+      password: whatUserTyped,
     };
-    
-    User.findOne({'email': userInfo.email}).exec(function(err, userObj){
+
+    User.findOne({'email': email}).exec(function(err, userObj){
+      console.log(userObj);
       if (err){
         console.log('----------------');
         console.log(err);
@@ -27,7 +30,7 @@ module.exports = function(app){
       else {
         const userSavedHash = userObj.hash;
 
-        phs(userInfo.password).verifyAgainst(userSavedHash, function(error, verified){
+        phs(whatUserTyped).verifyAgainst(userSavedHash, function(error, verified){
           if(error)
               throw new Error('There was an error while comparing hashes.');
               //This error crashes the server. Make sure to come back and handle it.
@@ -48,11 +51,14 @@ module.exports = function(app){
   });
 
   app.post('/register/:encodedEmail/:encodedHash', function(req, res) {
-    //start decrypting here
+    const userEmail = decodeURIComponent(req.params.encodedEmail);
+    const hash = decodeURIComponent(req.params.encodedHash);
+    
     const user = new User({
-      email: decodeURIComponent(req.params.encodedEmail),
-      hash: decodeURIComponent(req.params.encodedHash),
-      date: Date.now()
+      email: userEmail,
+      password: hash,
+      date: Date.now(),
+      compounds: [],
     });
 
     user.save(function(err, userObj) {

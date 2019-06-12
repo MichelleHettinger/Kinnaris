@@ -92,21 +92,21 @@ const LoginHeader = ({ logUserIn, isLogged, signUserUp, logUserOut }) => {
           </Modal.Header>
           <Modal.Body id='accountModalBody'>
             <Row id='accountModalRow'>
-              <div id='accountModalForm' className='col-sm-offset-2'>
+              <Col sm={{ span: 6, offset: 2 }} id='accountModalForm'>
                 <div id='accountFormInlineName' className='form-inline'>
-                  <div id='accountFormGroupName' className='form-group'>
+                  <Form.Group id='accountFormGroupName'>
                     <span htmlFor='name'>Name:</span>
                     <p>USERNAMEVARIABLE</p>
-                  </div>
+                  </Form.Group>
                 </div>
                 <div id='accountFormInlineEmail' className='form-inline'>
-                  <div id='accountFormGroupEmail' className='form-group'>
+                  <Form.Group id='accountFormGroupEmail'>
                     <span htmlFor='email'>Email:</span>
                     <p>USEREMAILVARIABLE</p>
-                  </div>
+                  </Form.Group>
                 </div>
                 <div id='accountFormInlineNewName' className='form-inline'>
-                  <div id='accountFormGroupNewName' className='form-group'>
+                  <Form.Group id='accountFormGroupNewName'>
                     <label htmlFor='newname'>New Name:
                       <input
                         id='accountFormNewNameInput'
@@ -116,10 +116,10 @@ const LoginHeader = ({ logUserIn, isLogged, signUserUp, logUserOut }) => {
                         //onChange={text => this.grabNewName(text.target.value)}
                       />
                     </label>
-                  </div>
+                  </Form.Group>
                 </div>
                 <div id='accountFormInlineNewEmail' className='form-inline'>
-                  <div id='accountFormGroupNewEmail' className='form-group'>
+                  <Form.Group id='accountFormGroupNewEmail'>
                     <label htmlFor='newemail'>New Email:
                       <input
                         id='accountFormNewEmailInput'
@@ -129,7 +129,7 @@ const LoginHeader = ({ logUserIn, isLogged, signUserUp, logUserOut }) => {
                         //onChange={text => this.grabNewEmail(text.target.value)}
                       />
                     </label>
-                  </div>
+                  </Form.Group>
                   <input
                     id='accountFormUpdateButton'
                     type='button'
@@ -137,7 +137,7 @@ const LoginHeader = ({ logUserIn, isLogged, signUserUp, logUserOut }) => {
                     className='btn btn-primary btn-sm'
                   />
                 </div>
-              </div>
+              </Col>
             </Row>
           </Modal.Body>
           <Modal.Footer id='accountModalFooter'>

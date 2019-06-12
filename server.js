@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const path = require('path');
 const jwt = require('jsonwebtoken');
-//const session = require('express-session');
+const session = require('express-session');
 const methodOverride = require('method-override');
 const httpProxy = require('http-proxy');
 const mongoose = require('mongoose');
@@ -57,7 +57,7 @@ app.all('/src/assets/*', (req, res) => {
 // if they haven't passed the threshold of auth-routes.
 require('./src/controllers/html-routes.js')(app); 
 require('./src/controllers/auth-routes.js')(app); 
-require('./src/controllers/api-routes.js')(app);
+//require('./src/controllers/api-routes.js')(app);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
