@@ -5,18 +5,14 @@ const CryptoJS = require("crypto-js");
 module.exports = function(app){
 
   //After entering user name and password and clicking submit, they are brought to this route
-  app.get('/authenticate/:encodedEmail/:encodedPassword', function(req, res) {
+  app.get('/authenticate/:encodedEmail/:encodedHash', function(req, res) {
     //start decrypting here
-    const email = decodeURIComponent(req.params.encodedEmail);
-    const encryptedPassword = decodeURIComponent(req.params.encodedPassword);
-    const whatUserTyped = CryptoJS.AES.decrypt(encryptedPassword, 'michelle is totally awesome').toString(CryptoJS.enc.Utf8);
-
     const userInfo = {
-      username: email,
-      password: whatUserTyped,
+      email: decodeURIComponent(req.params.encodedEmail),
+      password: CryptoJS.AES.decrypt(decodeURIComponent(req.params.encodedHash), 'michelle is totally awesome').toString(CryptoJS.enc.Utf8)
     };
-
-    User.findOne({'email': email}).exec(function(err, userObj){
+    
+    User.findOne({'email': userInfo.email}).exec(function(err, userObj){
       if (err){
         console.log('----------------');
         console.log(err);
@@ -24,27 +20,26 @@ module.exports = function(app){
         res.redirect('/');
       } else if (userObj === null) {
         console.log('----------------');
-        console.log('User not found.');
+        console.log('User not found');
         console.log('-----------------');
         res.send({});
       }
       else {
-        const userSavedHash = userObj.password;
+        const userSavedHash = userObj.hash;
 
-        phs(whatUserTyped).verifyAgainst(userSavedHash, function(error, verified){
+        phs(userInfo.password).verifyAgainst(userSavedHash, function(error, verified){
           if(error)
               throw new Error('There was an error while comparing hashes.');
               //This error crashes the server. Make sure to come back and handle it.
           if (!verified) {
-              console.log('-----------------');
-              console.log("Incorrect password.");
-              console.log('-----------------');
+              console.log('--------------------');
+              console.log("Incorrect password");
+              console.log('--------------------');
               res.send({});
           } else {
               console.log('-----------------');
-              console.log("Access granted.");
+              console.log("Access granted");
               console.log('-----------------');
-
               res.send(userObj);
           }
         });
@@ -54,24 +49,22 @@ module.exports = function(app){
 
   app.post('/register/:encodedEmail/:encodedHash', function(req, res) {
     //start decrypting here
-    const userEmail = decodeURIComponent(req.params.encodedEmail);
-    const hash = decodeURIComponent(req.params.encodedHash);
-
     const user = new User({
-      email: userEmail,
-      password: hash,
-      date: Date.now(),
-      compounds: [],
+      email: decodeURIComponent(req.params.encodedEmail),
+      hash: decodeURIComponent(req.params.encodedHash),
+      date: Date.now()
     });
 
     user.save(function(err, userObj) {
       if (err){
-        console.log('----------------');
-        console.log(err);
-        console.log('----------------');
+        console.log('---------------------');
+        console.log("User already exists");
+        console.log('---------------------');
         res.redirect('/');
       } else {
-
+        console.log('----------------');
+        console.log("Saving new user");
+        console.log('----------------');
         res.send(userObj);
       }
     });

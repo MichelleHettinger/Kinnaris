@@ -70,7 +70,7 @@ export const findUser = (email, password) => {
 
         // We can dispatch many times!
         // Here, we update the app state with the results of the API call.
-        dispatch(receiveUser(email, userWithToken)),
+        dispatch(receiveUser(email, userWithToken))
       );
 
       // In a real world app, you also want to

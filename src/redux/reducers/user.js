@@ -11,7 +11,7 @@ import {
 const user = (state = {
   isFetching: false,
   isLogged: false,
-  details: {_id: '', compounds: []},
+  details: {_id: ''},
 }, action) => {
   switch (action.type) {
     case REQUEST_REGISTER_USER:
@@ -38,7 +38,7 @@ const user = (state = {
     case LOG_USER_OUT:
       return Object.assign({}, state, {
         isLogged: false,
-        details: {_id: '', compounds: []},
+        details: {_id: ''},
       });
     default: {
       return state;

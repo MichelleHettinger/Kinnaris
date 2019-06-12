@@ -17,8 +17,9 @@ const requestRegisterUser = (email, password) => {
   };
 };
 
-export const finishRegisterUser = (email, userWithToken) => {
-  if (userWithToken.userObj.email === undefined) {
+export const finishRegisterUser = (email, user) => {
+  console.log(user);
+  if (user.userObj.email === undefined) {
     return {
       type: REGISTER_USER_FAIL,
       receivedAt: Date.now(),
@@ -28,16 +29,19 @@ export const finishRegisterUser = (email, userWithToken) => {
 
   return {
     type: REGISTER_USER_SUCCESS,
-    userObj: userWithToken.userObj,
+    userObj: user.userObj,
     receivedAt: Date.now(),
     [pendingTask]: end,
   };
 };
 
 export const registerUser = (email, password) => {
+
   if (!validateEmailPass(email, password)) {
     return () => {
+      console.log('----------------');
       console.log('Incomplete Form');
+      console.log('----------------');
     };
   }
 
@@ -53,9 +57,9 @@ export const registerUser = (email, password) => {
       return fetch(`/register/${encodedEmail}/${encodedHash}`, {
         method: 'POST',
       })
-        .then(response => response.json())
-        .then(userWithToken =>
-          dispatch(finishRegisterUser(email, userWithToken)),
+      .then(response => response.json())
+      .then(user =>
+          dispatch(finishRegisterUser(email, user))
         );
     });
   };

@@ -7,15 +7,14 @@ const UserSchema = new Schema({
     unique: true,
     required: true,
   },
-  password: {
+  hash: {
     type: String,
     required: true,
   },
   date: {
     type: Date,
     required: true,
-  },
-  compounds: [Schema.Types.Mixed],
+  }
 });
 
 const User = mongoose.model('User', UserSchema);
