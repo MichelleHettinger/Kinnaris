@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch';
+import fetch from 'cross-fetch';
 import phs from 'password-hash-and-salt';
 import { pendingTask, begin, end } from 'react-redux-spinner';
 import validateEmailPass from '../../utils/validation';
@@ -13,7 +13,7 @@ const requestRegisterUser = (email, password) => {
     type: REQUEST_REGISTER_USER,
     email,
     password,
-    [pendingTask]: begin,
+    [pendingTask]: begin
   };
 };
 
@@ -23,7 +23,7 @@ export const finishRegisterUser = (email, user) => {
     return {
       type: REGISTER_USER_FAIL,
       receivedAt: Date.now(),
-      [pendingTask]: end,
+      [pendingTask]: end
     };
   }
 
@@ -31,7 +31,7 @@ export const finishRegisterUser = (email, user) => {
     type: REGISTER_USER_SUCCESS,
     userObj: user.userObj,
     receivedAt: Date.now(),
-    [pendingTask]: end,
+    [pendingTask]: end
   };
 };
 
@@ -57,9 +57,9 @@ export const registerUser = (email, password) => {
       return fetch(`/register/${encodedEmail}/${encodedHash}`, {
         method: 'POST',
       })
-      .then(response => response.json())
-      .then(user =>
-          dispatch(finishRegisterUser(email, user))
+        .then(response => response.json())
+        .then(user =>
+          dispatch(finishRegisterUser(user)),
         );
     });
   };

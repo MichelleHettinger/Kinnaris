@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch';
+import fetch from 'cross-fetch';
 import CryptoJS from 'crypto-js';
 import { pendingTask, begin, end } from 'react-redux-spinner';
 import {
@@ -48,8 +48,14 @@ export const findUser = (email, password) => {
 
   return (dispatch) => {
     dispatch(requestUser(email, encryptedPassword));
-    return fetch(`/authenticate/${encodedEmail}/${encodedPassword}`)
-      //.then(res => res.json())
-      .then(user => dispatch(receiveUser(user)))
+
+    return fetch(`/authenticate/${encodedEmail}/${encodedPassword}`, {
+      method: 'GET',
+      credentials: 'same-origin',
+    })
+      .then(response => response.json())
+      .then(user =>
+        dispatch(receiveUser(user)),
+      );
   };
 };
