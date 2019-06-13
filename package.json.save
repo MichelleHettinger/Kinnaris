@@ -1,5 +1,5 @@
-{
-  "name": "kinnaris",
+kin{
+  "name": "KinnarisFront",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
