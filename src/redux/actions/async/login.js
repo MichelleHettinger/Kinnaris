@@ -1,6 +1,6 @@
+import es6Promise from 'es6-promise';
 import fetch from 'isomorphic-fetch';
 import CryptoJS from 'crypto-js';
-//import { pendingTask, begin, end } from 'react-redux-spinner';
 import { pendingTask, begin, end } from 'react-redux-spinner';
 import {
   REQUEST_USER,
@@ -8,6 +8,8 @@ import {
   RECEIVE_USER_SUCCESS,
 } from '../../constants/actions';
 import validateEmailPass from '../../utils/validation';
+
+es6Promise.polyfill();
 
 const requestUser = (email, password) => {
   return {
@@ -44,13 +46,13 @@ export const findUser = (email, password) => {
   }
 
   const encryptedPassword = CryptoJS.AES.encrypt(password, 'michelle is totally awesome').toString();
-  const encodedEmail = encodeURIComponent(email);
-  const encodedPassword = encodeURIComponent(encryptedPassword);
+  //const encodedEmail = encodeURIComponent(email);
+  //const encodedPassword = encodeURIComponent(encryptedPassword);
 
   return (dispatch) => {
     dispatch(requestUser(email, encryptedPassword));
 
-    return fetch(`/authenticate/${encodedEmail}/${encodedPassword}`, {
+    return fetch('/authenticate/', {
       method: 'GET',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'}

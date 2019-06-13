@@ -2,20 +2,21 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const path = require('path');
-const jwt = require('jsonwebtoken');
+const PeatioSdk = require('peatio-sdk');
+const defaultClient = PeatioSdk.ApiClient.instance;
+const jwt = defaultClient.authentications['jwt'];
 const session = require('express-session');
 const methodOverride = require('method-override');
 const httpProxy = require('http-proxy');
 const mongoose = require('mongoose');
-const proxy = httpProxy.createProxyServer().listen(3000);
+const proxy = httpProxy.createProxyServer().listen(8001);
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 8000;
 const publicPath = path.resolve(__dirname, './dist');
 
 // A dependency on a Mongoose model for articles.
 const User = require('./src/models/user.js');
 
-// MongoDB Connection
 const db = mongoose.connection;
 mongoose.connect('mongodb://localhost/kinnaris');
 
@@ -27,8 +28,9 @@ db.once('open', function () {
   console.log('Mongoose connection successful.');
 });
 
-app.set('jwtSecret', "CODINGROCKS");
+//app.set('jwtSecret', "CODINGROCKS");
 //app.use(session({secret: 'mySecret', resave: false, saveUninitialized: false}));
+jwt.accessToken = 'CODINGROCKS';
 // Logging and public Path
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -48,16 +50,13 @@ app.use((req, res, next) => {
 // Proxy all assets to webpack dev server
 app.all('/src/assets/*', (req, res) => {
   proxy.web(req, res, {
-    target: 'http://localhost:7777',
+    target: 'http://localhost:8080',
   });
 });
- 
-// By placing the auth-routes before api-routes, 
-// we stop users from going to any api sections
-// if they haven't passed the threshold of auth-routes.
+
 require('./src/controllers/html-routes.js')(app); 
 require('./src/controllers/auth-routes.js')(app); 
-//require('./src/controllers/api-routes.js')(app);
+require('./src/controllers/api-routes.js')(app);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

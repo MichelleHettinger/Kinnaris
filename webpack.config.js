@@ -20,6 +20,7 @@ module.exports = {
   mode: 'development',
   module: {
     rules: [
+      {parser: {amd: false}},
       {
         test: /\.html$/,
         loader: "file-loader?name=[name].[ext]"

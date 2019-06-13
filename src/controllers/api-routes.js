@@ -1,51 +1,22 @@
-// const path = require("path");
-// const User = require("../models/user.js");
-// const CryptoJS = require("crypto-js");
+const path = require('path');
+const PeatioSdk = require('peatio-sdk');
 
-// module.exports = function(app) {
+module.exports = function(app) {
+  app.get(`/authenticate/`, function(req, res) {
 
-//   app.post('/saveCompound/:encodedUserID/:newCompoundString', function(req, res) {
-//     //Decoding and parsing
-//     const userObjId = decodeURIComponent(req.params.encodedUserID);
-//     const newCompoundString = req.params.newCompoundString.replace(/\^/g, ',').replace(/\$/g, '.');
-//     let newCompoundObj = JSON.parse(newCompoundString);
-//     newCompoundObj.elements = Object.keys(newCompoundObj.elements).map(key=>newCompoundObj.elements[key]);
+    const peatioApi = new PeatioSdk.MarketsApi();
 
-//     User.findOneAndUpdate(
-//       {'_id': userObjId},
-//       {$push: {'compounds': newCompoundObj}},
-//       {new: true}
-//     ).exec(function(err, userObj) {
-//       if (err){
-//         console.log('----------------');
-//         console.log(err);
-//         console.log('----------------');
-//         res.redirect('/');
-//       } else {
-//         res.send(userObj);
-//       }
-//     });
-//   });
+    const txid = 'txid_example'; // {String} 
 
-//   app.post('/deleteCompound/:encodedUserID/:encodedCompoundName', function(req, res) {
-//     //Decoding and parsing
-//     const userObjId = decodeURIComponent(req.params.encodedUserID);
-//     const oldCompoundName = decodeURIComponent(req.params.encodedCompoundName);
-
-//     User.findOneAndUpdate(
-//       {'_id': userObjId},
-//       { $pull: {'compounds': {'chemicalName': oldCompoundName}} },
-//       {new:true}
-//     ).exec(function(err, userObj) {
-//       if (err){
-//         console.log('----------------');
-//         console.log(err);
-//         console.log('----------------');
-//         res.redirect('/');
-//       } else {
-//         res.send(userObj);
-//       }
-//     });
-
-//   });
-// }
+    peatioApi.getV2Markets(function(error, data, response){
+      if (error) {
+        console.error(error.status);
+        console.log(data);
+        res.send({});
+      } else {
+        console.log('API called successfully.');
+        res.send(response);
+      }
+    })
+  })
+}
