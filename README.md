@@ -1,8 +1,65 @@
-# MikroApp
+# Kinnaris
 
 [![Build Status](https://ci.microkube.com/api/badges/rubykube/mikroapp/status.svg)](https://ci.microkube.com/rubykube/mikroapp)
 
 Rubykube wallet frontend for peatio and barong
+
+su -
+apt-get install sudo -y
+sudo usermod -aG sudo app
+------------------------------------------------------------------------------------------
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable"
+apt update
+apt install docker-ce
+systemctl status docker
+sudo usermod -aG docker app
+curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /bin/docker-compose
+chmod +x /bin/docker-compose
+-----------------------------------------------------------------------
+su - app
+sudo apt-get install git-core curl build-essential openssl libssl-dev
+sudo apt-get install curl software-properties-common
+curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
+sudo apt-get install -y nodejs
+---------------------------------------------------------------------
+sudo apt-get install curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev libffi-dev
+sudo apt-get install dirmngr --install-recommends
+---------------------------------------------------------------------
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+curl -sSL https://get.rvm.io | bash -s stable --ruby=2.6.0 --gems=rails
+source /home/app/.rvm/scripts/rvm
+rvm use 2.6.0
+----------------------------------------------------------------
+git clone https://github.com/rubykube/microkube.git
+cd microkube
+sudo nano config/app.yml #(peatio 2.2.3, barong 2.2.2 tower 0.1.17, arke 0.1.9)
+bundle
+rake render:config
+rake service:daemons
+rake service:cryptonodes
+rake service:all
+rake vendor:clone
+cd vendor/frontend/
+npm install
+npm audit fix
+--
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt-get update && sudo apt-get install yarn
+npm run build
+serve -s build
+sudo nano /etc/hosts
+      ( 0.0.0.0 www.app.local
+	0.0.0.0 monitor.app.local
+	0.0.0.0 peatio.app.local
+	0.0.0.0 barong.app.local
+	0.0.0.0 tower.app.local
+	0.0.0.0 postmaster.app.local
+	0.0.0.0 cryptonodes.app.local
+	0.0.0.0 daemons.app.local
+	0.0.0.0 ethereum.app.local )
 ---------------------------------------------------
 Email: admin@barong.io, password: 0lDHd9ufs9t@
 Email: john@barong.io, password: Am8icnzEI3d!
@@ -44,10 +101,10 @@ sudo apt-get install curl zlib1g-dev build-essential libssl-dev libreadline-dev 
 sudo apt-get install dirmngr --install-recommends
 ---------------------------------------------------------------------
 su - michelle
-gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+gpg --keyserer hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 curl -sSL https://get.rvm.io | bash -s stable --ruby=2.6.0 --gems=rails
 source /home/michelle/.rvm/scripts/rvm
-rvm use 2.6.0
+rvm use 2.6.
 ----------------------------------------------------------------
 git clone https://github.com/rubykube/microkube.git
 cd microkube
@@ -59,8 +116,6 @@ rake vendor:clone
 cd vendor/frontend/
 npm install
 --------------------------------------------------
-
-
 
 
 ## Available Scripts
