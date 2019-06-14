@@ -4,9 +4,13 @@
 
 Rubykube wallet frontend for peatio and barong
 
+New User
+-----------------------------------------------
 su -
 apt-get install sudo -y
 sudo usermod -aG sudo app
+
+Install Docker
 ------------------------------------------------------------------------------------------
 sudo apt install apt-transport-https ca-certificates curl software-properties-common
 
@@ -25,6 +29,8 @@ sudo usermod -aG docker app
 curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /bin/docker-compose
 
 chmod +x /bin/docker-compose
+
+Install Node - Everything Here on do as user 'app'
 -----------------------------------------------------------------------
 su - app
 
@@ -35,10 +41,14 @@ sudo apt-get install curl software-properties-common
 curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
 
 sudo apt-get install -y nodejs
+
+Install More Dependencies
 ---------------------------------------------------------------------
 sudo apt-get install curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev libffi-dev
 
 sudo apt-get install dirmngr --install-recommends
+
+Install rvm and ruby
 ---------------------------------------------------------------------
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 
@@ -47,24 +57,35 @@ curl -sSL https://get.rvm.io | bash -s stable --ruby=2.6.0 --gems=rails
 source /home/app/.rvm/scripts/rvm
 
 rvm use 2.6.0
+
+Clone and Config
 ----------------------------------------------------------------
-git clone https://github.com/rubykube/microkube.git
+git clone https://github.com/michellehettinger/kinnarisfull.git
 
 cd microkube
 
-sudo nano config/app.yml 
-#(peatio 2.2.3, barong 2.2.2 tower 0.1.17, arke 0.1.9)
+sudo nano config/app.yml   #(peatio 2.2.8, barong 2.2.14 tower 0.1.17, arke 0.1.9)
 
 bundle
+
 rake render:config
+
 rake service:daemons
+
 rake service:cryptonodes
+
 rake service:all
+
+Clone Frontend
+-----------------------------------------------------------------------------
 rake vendor:clone
+
 cd vendor/frontend/
+
 npm install
+
 npm audit fix
---
+
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
@@ -72,9 +93,13 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 sudo apt-get update && sudo apt-get install yarn
 
 npm run build
+
 serve -s build
+
 sudo nano /etc/hosts
-      ( 0.0.0.0 www.app.local
+
+	#Put these in the file
+  0.0.0.0 www.app.local
 	0.0.0.0 monitor.app.local
 	0.0.0.0 peatio.app.local
 	0.0.0.0 barong.app.local
@@ -82,9 +107,9 @@ sudo nano /etc/hosts
 	0.0.0.0 cryptonodes.app.local
 	0.0.0.0 daemons.app.local
 	0.0.0.0 eth.app.local
-	0.0.0.0 ws.ranger.app.local )
+	0.0.0.0 ws.ranger.app.local
+	
 --------------------------------------------------
-
 
 ## Available Scripts
 
