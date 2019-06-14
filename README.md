@@ -30,7 +30,7 @@ curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compo
 
 chmod +x /bin/docker-compose
 
-Install Node - Everything Here on do as user 'app'
+Install Node - Everything here on down must be done as user 'app'
 -----------------------------------------------------------------------
 su - app
 
@@ -58,6 +58,8 @@ source /home/app/.rvm/scripts/rvm
 
 rvm use 2.6.0
 
+bundle
+
 Clone and Config
 ----------------------------------------------------------------
 git clone https://github.com/michellehettinger/kinnarisfull.git
@@ -65,8 +67,6 @@ git clone https://github.com/michellehettinger/kinnarisfull.git
 cd microkube
 
 sudo nano config/app.yml   #(peatio 2.2.8, barong 2.2.14 tower 0.1.17, arke 0.1.9)
-
-bundle
 
 rake render:config
 
