@@ -66,7 +66,7 @@ git clone https://github.com/michellehettinger/kinnarisfull.git
 
 cd microkube
 
-sudo nano config/app.yml   #(peatio 2.2.8, barong 2.2.14 tower 0.1.17, arke 0.1.9)
+sudo nano config/app.yml   (peatio 2.2.8, barong 2.2.14 tower 0.1.17, arke 0.1.9)
 
 rake render:config
 
@@ -98,16 +98,16 @@ serve -s build
 
 sudo nano /etc/hosts
 
-	#Put these in the file
-  0.0.0.0 www.app.local
-	0.0.0.0 monitor.app.local
-	0.0.0.0 peatio.app.local
-	0.0.0.0 barong.app.local
-	0.0.0.0 tower.app.local
-	0.0.0.0 cryptonodes.app.local
-	0.0.0.0 daemons.app.local
-	0.0.0.0 eth.app.local
-	0.0.0.0 ws.ranger.app.local
+Put these in the file
+0.0.0.0 www.app.local
+0.0.0.0 monitor.app.local
+0.0.0.0 peatio.app.local
+0.0.0.0 barong.app.local
+0.0.0.0 tower.app.local
+0.0.0.0 cryptonodes.app.local
+0.0.0.0 daemons.app.local
+0.0.0.0 eth.app.local
+0.0.0.0 ws.ranger.app.local
 	
 --------------------------------------------------
 
