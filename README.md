@@ -1,20 +1,31 @@
-# Kinnaris
+## Kinnaris
 
 Rubykube wallet frontend for peatio and barong
 
 New User
 -----------------------------------------------
+```
 su -
+
+adduser app
+
+sudo usermod -aG docker app
+
 apt-get install sudo -y
-sudo usermod -aG sudo app
+
+groupadd app
+
+useradd -d /home/app -s `which bash` -g app -m app
+```
 
 Install Docker
 ------------------------------------------------------------------------------------------
+```
 sudo apt install apt-transport-https ca-certificates curl software-properties-common
 
-curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 
-add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable"
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 
 apt update
 
@@ -24,12 +35,15 @@ systemctl status docker
 
 sudo usermod -aG docker app
 
-curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /bin/docker-compose
+curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
 chmod +x /bin/docker-compose
+```
 
-Install Node - Everything here on down must be done as user 'app'
+Install Node
 -----------------------------------------------------------------------
+
+```
 su - app
 
 sudo apt-get install git-core curl build-essential openssl libssl-dev
@@ -39,15 +53,20 @@ sudo apt-get install curl software-properties-common
 curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
 
 sudo apt-get install -y nodejs
+```
 
 Install More Dependencies
 ---------------------------------------------------------------------
+```
 sudo apt-get install curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev libffi-dev
 
 sudo apt-get install dirmngr --install-recommends
+```
 
-Install rvm and ruby
+Install rvm and ruby - Everything here on down must be done as user 'app'
 ---------------------------------------------------------------------
+Restart ubuntu and login as app
+```
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 
 curl -sSL https://get.rvm.io | bash -s stable --ruby=2.6.0 --gems=rails
@@ -57,9 +76,11 @@ source /home/app/.rvm/scripts/rvm
 rvm use 2.6.0
 
 bundle
+```
 
 Clone and Config
 ----------------------------------------------------------------
+```
 git clone https://github.com/michellehettinger/kinnarisfull.git
 
 cd microkube
@@ -72,40 +93,36 @@ rake service:daemons
 
 rake service:cryptonodes
 
-rake service:all
+rake service:app
+```
 
 Clone Frontend
 -----------------------------------------------------------------------------
+```
 rake vendor:clone
 
 cd vendor/frontend/
 
 npm install
+```
 
-npm audit fix
-
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-
-sudo apt-get update && sudo apt-get install yarn
-
-npm run build
-
-serve -s build
-
+Adjust hosts file
+--------------------------------------------------------------
+```
 sudo nano /etc/hosts
+```
 
-Put these in the file
-0.0.0.0 www.app.local
-0.0.0.0 monitor.app.local
-0.0.0.0 peatio.app.local
-0.0.0.0 barong.app.local
-0.0.0.0 tower.app.local
-0.0.0.0 cryptonodes.app.local
-0.0.0.0 daemons.app.local
-0.0.0.0 eth.app.local
-0.0.0.0 ws.ranger.app.local
+Put these in the file:
+
+0.0.0.0 www.app.local<br>
+0.0.0.0 monitor.app.local<br>
+0.0.0.0 peatio.app.local<br>
+0.0.0.0 barong.app.local<br>
+0.0.0.0 tower.app.local<br>
+0.0.0.0 cryptonodes.app.local<br>
+0.0.0.0 daemons.app.local<br>
+0.0.0.0 eth.app.local<br>
+0.0.0.0 ws.ranger.app.local<br>
 	
 --------------------------------------------------
 
