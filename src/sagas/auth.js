@@ -23,10 +23,8 @@ export function* fetchLogoutSaga() {
 
 
 export function* fetchLogin({ payload: { email, password } }) {
-
   try {
     yield call(loginUser, email, password);
-          
     yield call(fetchUser);
     yield put(push('/wallets'));
   } catch (e) {
