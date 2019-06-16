@@ -35,7 +35,7 @@ steps:
 - name: push
   image: plugins/docker
   settings:
-    repo: michellie420/kinnaris
+    repo: rubykube/mikroapp
     username:
       from_secret: mikroapp_docker_username
     password:
