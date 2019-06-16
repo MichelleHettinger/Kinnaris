@@ -1,5 +1,5 @@
 kind: pipeline
-name: Kinnaris
+name: MikroApp
 
 steps:
 
@@ -39,7 +39,7 @@ steps:
     username:
       from_secret: mikroapp_docker_username
     password:
-      from_secret: mikroapp_docker_username
+      from_secret: mikroapp_docker_password
   when:
     branch:
       - master

@@ -1,4 +1,5 @@
-import { call, put, takeEvery, select, delay} from 'redux-saga/effects';
+import { call, put, takeEvery, select } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 import * as actions from '../actions/withdraw';
 import * as types from '../constants/actions';
 import { postNewWithdraws } from '../api/withdraw';

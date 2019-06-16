@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
 import SideBar from '../../components/Wallet/Sidebar';
@@ -50,36 +50,34 @@ class WalletPage extends Component {
           fetchWalletAddress={fetchWalletAddress}
         />
         <WalletLayout location={location} activeWallet={activeWallet} wallets={wallets}>
-          <BrowserRouter>
-            <Switch>
-              <Route
-                path="/wallets/deposit"
-                render={() => (
-                  <div>
-                    <Deposit wallet={wallets[activeWallet]} />
-                    <History history={this.filterHistory(depositHistory)} />
-                  </div>
-                )}
-              />
-              <Route
-                path="/wallets/withdrawal"
-                render={() => (
-                  <div>
-                    <Withdraw
-                      currency={wallets[activeWallet]}
-                      onChange={handleChangeWithdraw}
-                      rid={rid}
-                      amount={amount}
-                      otp={otp}
-                      submitting={withdrawIsFetching}
-                      onClick={fetchSubmitWithdraw}
-                    />
-                    <History history={this.filterHistory(withdrawHistory)} />
-                  </div>
-                )}
-              />
-            </Switch>
-          </BrowserRouter>
+          <Switch>
+            <Route
+              path="/wallets/deposit"
+              render={() => (
+                <div>
+                  <Deposit wallet={wallets[activeWallet]} />
+                  <History history={this.filterHistory(depositHistory)} />
+                </div>
+              )}
+            />
+            <Route
+              path="/wallets/withdrawal"
+              render={() => (
+                <div>
+                  <Withdraw
+                    currency={wallets[activeWallet]}
+                    onChange={handleChangeWithdraw}
+                    rid={rid}
+                    amount={amount}
+                    otp={otp}
+                    submitting={withdrawIsFetching}
+                    onClick={fetchSubmitWithdraw}
+                  />
+                  <History history={this.filterHistory(withdrawHistory)} />
+                </div>
+              )}
+            />
+          </Switch>
         </WalletLayout>
       </Layout>
     );
