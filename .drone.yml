@@ -35,7 +35,7 @@ steps:
 - name: push
   image: plugins/docker
   settings:
-    repo: michellie420/kinnaris:latest
+    repo: michellie420/kinnaris
     username:
       from_secret: mikroapp_docker_username
     password:
@@ -52,7 +52,7 @@ steps:
       WEBHOOK_JWT_SECRET:
           from_secret: microkube_webhook_secret
   commands:
-    - export latest_image=michellie420/kinnaris:$(cat .tags)
+    - export latest_image=rubykube/mikroapp:$(cat .tags)
     - cd /home/app
     - bundle exec rake payload:send[frontend,$latest_image,http://www.microkube.com:1337]
   when:
