@@ -37,9 +37,9 @@ steps:
   settings:
     repo: michellie420/kinnaris:latest
     username:
-      from_secret: 'michellie420'
+      from_secret: mikroapp_docker_username
     password:
-      from_secret: 'S0nyd0ggy!'
+      from_secret: mikroapp_docker_username
   when:
     branch:
       - master
