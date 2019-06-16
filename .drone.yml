@@ -35,7 +35,7 @@ steps:
 - name: push
   image: plugins/docker
   settings:
-    repo: michellie420/kinnaris:kinnaris
+    repo: michellie420/kinnaris:latest
     username:
       from_secret: 'michellie420'
     password:
