@@ -1,5 +1,5 @@
 kind: pipeline
-name: MikroApp
+name: Kinnaris
 
 steps:
 
@@ -35,11 +35,11 @@ steps:
 - name: push
   image: plugins/docker
   settings:
-    repo: rubykube/mikroapp
+    repo: michellie420/kinnaris
     username:
-      from_secret: mikroapp_docker_username
+      from_secret: 'michellie420'
     password:
-      from_secret: mikroapp_docker_password
+      from_secret: 'S0nyd0ggy!'
   when:
     branch:
       - master
@@ -52,7 +52,7 @@ steps:
       WEBHOOK_JWT_SECRET:
           from_secret: microkube_webhook_secret
   commands:
-    - export latest_image=rubykube/mikroapp:$(cat .tags)
+    - export latest_image=michellie420/kinnaris:$(cat .tags)
     - cd /home/app
     - bundle exec rake payload:send[frontend,$latest_image,http://www.microkube.com:1337]
   when:

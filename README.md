@@ -1,7 +1,5 @@
 # Kinnaris
 
-[![Build Status](https://ci.microkube.com/api/badges/rubykube/mikroapp/status.svg)](https://ci.microkube.com/rubykube/mikroapp)
-
 Rubykube wallet frontend for peatio and barong
 
 New User
