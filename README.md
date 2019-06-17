@@ -1,6 +1,61 @@
-#Kinnaris
+##Kinnaris
 
 Rubykube wallet frontend for peatio and barong
+
+Install Dependencies:
+```
+su -
+
+sudo usermod -aG sudo linuxUser
+
+sudo apt-get install git-core curl apt-transport-https ca-certificates curl software-properties-common zlib1g-dev build-essential openssl libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev libffi-dev install dirmngr --install-recommends
+```
+
+Install Docker
+```
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable"
+
+sudo apt update
+
+sudo apt install docker-ce
+
+systemctl status docker
+
+sudo usermod -aG docker linuxUser
+
+curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /bin/docker-compose
+
+chmod +x /bin/docker-compose
+```
+
+Install NVM amd Node/NPM
+```
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+
+nvm install node 10.16.0
+
+nvm use node 10.16.0
+
+```
+
+Install RVM and Ruby/Rails
+```
+
+```
+asd
+```
+
+```
+asfd
+
+
+
+
+
+
+
 
 rake db:load (does create + migrate)
 rake service:backend
@@ -24,6 +79,9 @@ npm install
 yarn install
 npm start
 yarn build
+
+
+
 
 ## Available Scripts
 
