@@ -2,6 +2,26 @@
 
 Rubykube wallet frontend for peatio and barong
 
+rake db:load (does create + migrate)
+rake service:backend
+rake service:app
+rake service:cryptonodes
+rake service:daemons
+
+9 total images
+
+rubykube/peatio
+mysql
+rubykube/barong
+ethereum/client-go
+quay.io/openware/postmaster
+traefik
+redis
+rabbitmq
+vault
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:
