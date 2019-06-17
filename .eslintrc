@@ -1,82 +1,33 @@
 {
-  parser: "babel-eslint",
-  "plugins": [
-    "react",
-    "babel"
-  ],
-  "rules": {
-    "jsx-quotes": [
-      2,
-      "prefer-single"
-    ],
-    "react/jsx-curly-spacing": [
-      0,
-      "always"
-    ],
-    "react/prefer-stateless-function": [
-      0
-    ],
-    "react/jsx-filename-extension": 0,
-    "quotes": [
-      2,
-      "single"
-    ],
-    "linebreak-style": [
-      0
-    ],
-    "semi": [
-      2,
-      "always"
-    ],
-    "no-reserved-keys": 0,
-    "no-wrap-func": 0,
-    "spaced-line-comment": 0,
-    "no-console": 1,
-    "spaced-comment": 0,
-    "max-len": 0,
-    "no-plusplus": 0,
-    "no-var": 0,
-    "eol-last": 0,
-    "comma-dangle": 0,
-    "object-curly-newline": 0,
-    "arrow-body-style": 0,
-    "prefer-rest-params": 0,
-    "vars-on-top": 0,
-    "indent": 0,
-    "no-else-return": 0,
-    "no-restricted-syntax": 0,
-    "no-underscore-dangle": 0,
-    "import/no-mutable-exports": 1,
-    "prefer-arrow-callback": 1,
-    "import/newline-after-import": 0,
-    "no-duplicate-case": 0,
-    "object-curly-spacing": 0,
-    "babel/object-curly-spacing": 0,
-    "babel/new-cap": 0,
-    "react/forbid-prop-types": 0,
-    "implicit-arrow-linebreak": 1,
-    "function-paren-newline": 1,
-    "no-undef": 1,
-    "react/button-has-type": 1,
-    "operator-linebreak": 1,
-    "no-multiple-empty-lines": 1,
-    "padded-blocks": 0,
-    "react/jsx-one-expression-per-line": 0,
-    "react/jsx-closing-tag-location": 0,
-    "react/jsx-tag-spacing": 0,
-    "jsx-ally/label-has-associated-control": 0,
-    "jsx-a11y/label-has-for": 0,
-    "prefer-destructuring": 0,
-    "import/prefer-default-export": 1
-  },
-  "extends": [
-    "airbnb"
-  ],
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 7,
     "sourceType": "module",
+    "allowImportExportEverywhere": false,
+    "codeFrame": true,
     "ecmaFeatures": {
-      "jsx": true
+        "jsx": true,
+    }
+  },
+  "plugins": [
+    "react"
+  ],
+  "env": {
+    "browser": true
+  },
+  "extends": ["react-app", "eslint:recommended", "plugin:react/recommended"],
+  "rules": {
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "no-console": "off"
+  },
+  "globals": {
+     "require": true
+  },
+  "settings": {
+    "react": {
+      "version": "16.1"
     }
   }
 }
