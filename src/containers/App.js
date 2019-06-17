@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, BrowserRouter } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import WalletPage from './WalletPage';
 import TradePage from './TradePage';
@@ -37,12 +37,14 @@ class App extends Component {
 
     return (
       <MuiThemeProvider theme={muiTheme}>
-        <Switch>
-          <Redirect exact from='/' to='/wallets' />
-          <Route exact path="/login" component={LoginPage}/>
-          <PrivateRoute path="/wallets" component={WalletPage} isAuthenticated={isAuthenticated} isLoading={isFetching}/>
-          <PrivateRoute path="/trade" component={TradePage} isAuthenticated={isAuthenticated} isLoading={isFetching}/>
-        </Switch>
+        <BrowserRouter>
+          <Switch>
+            <Redirect exact from='/' to='/wallets' />
+            <Route exact path="/login" component={LoginPage}/>
+            <PrivateRoute path="/wallets" component={WalletPage} isAuthenticated={isAuthenticated} isLoading={isFetching}/>
+            <PrivateRoute path="/trade" component={TradePage} isAuthenticated={isAuthenticated} isLoading={isFetching}/>
+          </Switch>
+        </BrowserRouter>
       </MuiThemeProvider>
     );
   }
