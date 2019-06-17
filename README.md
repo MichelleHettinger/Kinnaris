@@ -20,7 +20,10 @@ redis
 rabbitmq
 vault
 
-
+npm install
+yarn install
+npm start
+yarn build
 
 ## Available Scripts
 
