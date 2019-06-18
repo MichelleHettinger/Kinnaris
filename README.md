@@ -30,6 +30,13 @@ sudo usermod -aG docker linuxUser
 sudo curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /bin/docker-compose
 
 sudo chmod +x /bin/docker-compose
+```
+
+Install Yarn
+```
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && echo "deb https://dl.$
+
+sudo apt-get update && sudo apt-get install --no-install-recommends yarn
 
 su - linuxUser
 ```
@@ -98,4 +105,3 @@ npm run test (test script)
 
 yarn build (for produciton build)
 ```
-
