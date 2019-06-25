@@ -67,16 +67,38 @@ npm start (for developing)
 npm run test (test script)
 yarn build (for produciton build)
 ```
-Adjust hosts file<br>
+Adjust hosts file
 ---------------------------------------------------
 sudo nano /etc/hosts
+
 Put these in the file:
+
 0.0.0.0 www.app.local
+
 0.0.0.0 monitor.app.local
+
 0.0.0.0 peatio.app.local
+
 0.0.0.0 barong.app.local
+
 0.0.0.0 tower.app.local
+
 0.0.0.0 cryptonodes.app.local
+
 0.0.0.0 daemons.app.local
-0.0.0.0 eth.app.local
+
+0.0.0.0 api.app.local
+
+0.0.0.0 auth.app.local
+
 0.0.0.0 ws.ranger.app.local
+
+0.0.0.0 pma.app.local
+
+0.0.0.0 monitor.app.local
+
+0.0.0.0 btc.app.local
+
+0.0.0.0 eth.app.local
+
+0.0.0.0 mail.app.local
